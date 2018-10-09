@@ -3,11 +3,11 @@ LABEL maintainer="dmitriy_skopintsev@epam.com"
 
 RUN yum install httpd mod_php php php-cli php-mysql
 RUN mkdir -p /var/www/app/public_html
-RUN chkconfig httpd on
+#RUN chkconfig httpd on
 
 COPY httpd/httpd.conf /etc/httpd/conf/httpd.conf
 COPY index.php /var/www/app/public_html
 
 EXPOSE 8080/tcp
 
-CMD /bin/bash
+CMD apachectl -D FOREGROUND
