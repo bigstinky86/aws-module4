@@ -1,7 +1,7 @@
 FROM amazonlinux
 LABEL maintainer="dmitriy_skopintsev@epam.com"
 
-RUN yum -y install mariadb mariadb-server
+RUN yum -y install mariadb mariadb-server mariadb-embedded
 RUN mysql_install_db
 RUN chown -R mysql:mysql /var/lib/mysql
 
