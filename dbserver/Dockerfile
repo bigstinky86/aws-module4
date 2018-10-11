@@ -5,7 +5,10 @@ RUN yum -y install mariadb mariadb-server
 RUN mysql_install_db
 RUN chown -R mysql:mysql /var/lib/mysql
 
-VOLUME ./my.cnf.d/server.cnf:/etc/my.cnf.d/server.cnf
+ENV MYSQL_USER=awsmodule \
+    MYSQL_PASSWORD=somepass \
+    MYSQL_DATABASE=moduledb \
+    MYSQL_ROOT_PASSWORD=somepath
 
 EXPOSE 3306/tcp
 
