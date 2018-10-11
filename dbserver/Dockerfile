@@ -10,4 +10,4 @@ RUN chmod +x /bin/dbserver_startup.sh
 
 EXPOSE 3306/tcp
 
-CMD /bin/dbserver_startup.sh
+CMD /bin/dbserver_startup.sh mysqld
