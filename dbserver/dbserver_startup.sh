@@ -21,7 +21,7 @@ if [ "$1" = 'mysqld_safe' ]; then
 		mysql_install_db --datadir="$DATADIR"
 		echo 'Finished mysql_install_db'
 		
-		
+		chown -R mysql:mysql "$DATADIR"
 		
 		# These statements _must_ be on individual lines, and _must_ end with
 		# semicolons (no line breaks or comments are permitted).
