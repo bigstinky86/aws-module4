@@ -6,6 +6,7 @@ networks:
 
 services:
     frontend:
+        container_name: frontend
         build: ./frontend
         image: frontend:0.2
         ports:
@@ -16,6 +17,7 @@ services:
             - my_net
         command: apachectl -D FOREGROUND
     backend1:
+        container_name: backend1
         build: ./backend
         image: backend:0.2
         ports:
@@ -26,7 +28,13 @@ services:
         networks:
             - my_net
         command: apachectl -D FOREGROUND
+        environment:
+            DB_NAME: moduledb
+            DB_HOST: dbserver
+            DB_USER: awsmodule
+            DB_PASS: somepass
     backend2:
+        container_name: backend2
         image: backend:0.2
         ports:
             - '8080'
@@ -36,9 +44,15 @@ services:
         networks:
             - my_net
         command: apachectl -D FOREGROUND
+        environment:
+            DB_NAME: moduledb
+            DB_HOST: dbserver
+            DB_USER: awsmodule
+            DB_PASS: somepass
         depends_on:
             - backend1
     dbserver:
+        container_name: dbserver
         build: ./dbserver
         image: dbserver:0.2
         ports:
@@ -48,3 +62,8 @@ services:
         networks:
             - my_net
         command: /bin/dbserver_startup.sh mysqld_safe
+        environment:
+            MYSQL_ROOT_PASSWORD: somepass
+            MYSQL_USER: awsmodule
+            MYSQL_PASSWORD: somepass
+            MYSQL_DATABASE: moduledb
