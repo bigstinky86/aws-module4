@@ -2,49 +2,49 @@ version: '3'
 
 networks:
     my_net:
-	driver: default
+        driver: default
 
 services:
     frontend:
-	build: ./frontend
-	image: frontend:0.2
-	ports: 
-	    - '80:80'
-	volumes:
-	    - ./frontend/httpd/httpd.conf:/etc/httpd/conf/httpd.conf:ro
-	networks:
-	    - my_net
-	command: apachectl -D FOREGROUND
+        build: ./frontend
+        image: frontend:0.2
+        ports:
+            - '80:80'
+        volumes:
+            - ./frontend/httpd/httpd.conf:/etc/httpd/conf/httpd.conf:ro
+        networks:
+            - my_net
+        command: apachectl -D FOREGROUND
     backend1:
-	build: ./backend
-	image: backend:0.2
-	ports:
-	    - '8080'
-	volumes:
-	    - ./backend/httpd/httpd.conf:/etc/httpd/conf/httpd.conf:ro
-	    - ./backend/index.php:/var/www/app/public_html/index.php
-	networks:
-	    - my_net
-	command: apachectl -D FOREGROUND
-    backend2:
-	image: backend:0.2
-	ports:
-	    - '8080'
-	volumes:
-	    - ./backend/httpd/httpd.conf:/etc/httpd/conf/httpd.conf:ro
-	    - ./backend/index.php:/var/www/app/public_html/index.php
-	networks:
-	    - my_net
-	command: apachectl -D FOREGROUND
-	depends_on:
-	    - backend1
+        build: ./backend
+        image: backend:0.2
+        ports:
+            - '8080'
+        volumes:
+            - ./backend/httpd/httpd.conf:/etc/httpd/conf/httpd.conf:ro
+            - ./backend/index.php:/var/www/app/public_html/index.php
+        networks:
+            - my_net
+        command: apachectl -D FOREGROUND
+     backend2:
+        image: backend:0.2
+        ports:
+            - '8080'
+        volumes:
+            - ./backend/httpd/httpd.conf:/etc/httpd/conf/httpd.conf:ro
+            - ./backend/index.php:/var/www/app/public_html/index.php
+        networks:
+            - my_net
+        command: apachectl -D FOREGROUND
+        depends_on:
+            - backend1
     dbserver:
-	build: ./dbserver
-	image: dbserver:0.2
-	ports:
-	    - '3306'
-	volumes:
-	    - ./dbserver/my.cnf.d/server.cnf:/etc/my.cnf.d/server.cnf:ro
-	networks:
-	    - my_net
-	command: /bin/dbserver_startup.sh mysqld_safe
+        build: ./dbserver
+        image: dbserver:0.2
+        ports:
+            - '3306'
+        volumes:
+            - ./dbserver/my.cnf.d/server.cnf:/etc/my.cnf.d/server.cnf:ro
+        networks:
+            - my_net
+        command: /bin/dbserver_startup.sh mysqld_safe
