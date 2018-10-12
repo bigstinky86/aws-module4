@@ -8,6 +8,8 @@ fi
 if [ "$1" = 'mysqld_safe' ]; then
 	DATADIR="/var/lib/mysql"
 	
+	set -- "$@" --datadir="$DATADIR"
+	
 	if [ ! -d "$DATADIR/mysql" ]; then
 		if [ -z "$MYSQL_ROOT_PASSWORD" -a -z "$MYSQL_ALLOW_EMPTY_PASSWORD" ]; then
 			echo >&2 'error: database is uninitialized and MYSQL_ROOT_PASSWORD not set'
@@ -18,6 +20,8 @@ if [ "$1" = 'mysqld_safe' ]; then
 		echo 'Running mysql_install_db ...'
 		mysql_install_db --datadir="$DATADIR"
 		echo 'Finished mysql_install_db'
+		
+		
 		
 		# These statements _must_ be on individual lines, and _must_ end with
 		# semicolons (no line breaks or comments are permitted).
@@ -57,6 +61,4 @@ if [ "$1" = 'mysqld_safe' ]; then
 	
 fi
 
-echo "$@"
-cat $tempSqlFile
-#exec "$@"
+exec "$@"
