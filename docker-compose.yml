@@ -2,7 +2,6 @@ version: '3'
 
 networks:
     my_net:
-        driver: default
 
 services:
     frontend:
