@@ -26,7 +26,7 @@ services:
         networks:
             - my_net
         command: apachectl -D FOREGROUND
-     backend2:
+    backend2:
         image: backend:0.2
         ports:
             - '8080'
