@@ -58,5 +58,5 @@ if [ "$1" = 'mysqld_safe' ]; then
 fi
 
 echo "$@"
-
+cat $tempSqlFile
 #exec "$@"
