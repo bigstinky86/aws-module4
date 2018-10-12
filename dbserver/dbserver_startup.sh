@@ -57,4 +57,6 @@ if [ "$1" = 'mysqld_safe' ]; then
 	
 fi
 
-exec "$@"
+echo "$@"
+
+#exec "$@"
