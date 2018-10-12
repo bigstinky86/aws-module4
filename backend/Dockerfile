@@ -1,7 +1,7 @@
 FROM amazonlinux
 LABEL maintainer="dmitriy_skopintsev@epam.com"
 
-RUN yum -y install httpd mod_php php php-cli php-mysql
+RUN yum -y install httpd mod_php php php-cli php-mysql php-pdo
 RUN mkdir -p /var/www/app/public_html
 
 COPY httpd/httpd.conf /etc/httpd/conf/httpd.conf
